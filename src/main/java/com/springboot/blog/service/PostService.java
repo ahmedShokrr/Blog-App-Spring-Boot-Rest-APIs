@@ -1,6 +1,7 @@
 package com.springboot.blog.service;
 
 
+import com.springboot.blog.entity.Post;
 import com.springboot.blog.payload.PostDto;
 import com.springboot.blog.payload.PostResponse;
 
@@ -21,9 +22,6 @@ public interface PostService {
     // New method to get posts by category
     List<PostDto> getPostsByCategory(Long categoryId);
 
-
-
-
-
+    List<PostDto> searchPosts(String query); // Change return type to List<PostDto>
 
 }

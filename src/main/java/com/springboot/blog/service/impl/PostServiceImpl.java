@@ -131,6 +131,17 @@ public class PostServiceImpl implements PostService {
     }
 
 
+    @Override
+    public List<PostDto> searchPosts(String query) {
+        List<Post> posts = postRepository.searchPosts(query);
+        if (posts.isEmpty()) {
+            throw new ResourceNotFoundException("Post", "query", query);
+        }
+        return posts.stream().map(this::mapToDTO).collect(Collectors.toList());
+    }
+
+
+
     //convert Entity to DTO
     private PostDto mapToDTO(Post post){
 

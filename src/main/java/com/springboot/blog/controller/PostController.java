@@ -1,6 +1,7 @@
 package com.springboot.blog.controller;
 
 
+import com.springboot.blog.entity.Post;
 import com.springboot.blog.payload.PostDto;
 import com.springboot.blog.payload.PostResponse;
 import com.springboot.blog.service.PostService;
@@ -130,6 +131,16 @@ public class PostController {
     @GetMapping("/category/{id}")
     public ResponseEntity<List<PostDto>> getPostsByCategory(@PathVariable("id") Long categoryId) {
         List<PostDto> posts = postService.getPostsByCategory(categoryId);
+        return ResponseEntity.ok(posts);
+    }
+
+    // GET /api/v1/posts/search?query={query}
+    @GetMapping("/api/v1/posts/search")
+    public ResponseEntity<?> searchPosts(@RequestParam String query) {
+        List<PostDto> posts = postService.searchPosts(query);
+        if (posts.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No posts found for query: " + query);
+        }
         return ResponseEntity.ok(posts);
     }
 
